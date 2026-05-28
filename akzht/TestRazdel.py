@@ -81,7 +81,7 @@ def draw_items(canvas, items, transform, color, radius, text_dx=0, text_dy=0):
         canvas.create_text(
             cx + text_dx,
             cy + text_dy,
-            text=f"{name} ({x}, {y})",
+            text=f"{name}",
             anchor="w",
             fill="#1b1b1b",
             font=("Arial", 10, "bold"),
