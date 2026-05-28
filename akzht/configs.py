@@ -74,9 +74,76 @@ segments = [
     ("М5", "М3"),
     ("М3", "8"),
     ("8", "6"),
-    ("6", "4")
-    # Пример:
-    # ("point1", "point6"),
-    # ("signal8", "signal9"),
-    # ("point6", "signal11"),
+    ("6", "4"),
 ]
+
+# Диагонали (стрелки на схеме).
+#
+# type: "Diagonal"       — обычная стрелка (2 узла)
+# type: "SplitDiagonal"  — разделённая стрелка (3 узла + part_a / part_b)
+#
+# Узлы задаём:
+# - именем из positions (лучше j_* — точки стыковки),
+# - или кортежем (x, y) прямо в start / mid / end,
+# - или через блок coords.
+#
+# offset_left / offset_right — «усики» вдоль пути (как в основном TestRazdel).
+
+diagonals = [
+    # Левый перевод с пути 1 на путь 2 (у Н2)
+    {
+        "type": "Diagonal",
+        "name": "Turn_14",
+        "start": (160, 225),
+        "end": (180, 265),
+        "offset_left": 15,
+        "offset_right": 15,
+    },
+    # # Центр: путь 1 <-> путь 2 (у Ч1/Ч2)
+    # {
+    #     "type": "Diagonal",
+    #     "name": "Стр_центр_Ч",
+    #     "start": "j_Ч1",
+    #     "end": "j_Ч2",
+    #     "offset_left": 12,
+    #     "offset_right": 12,
+    # },
+    # # Ветвление Н2 -> Н4 через Ч2 (разделённая стрелка)
+    # {
+    #     "type": "SplitDiagonal",
+    #     "name": "Стр_Н2_ветв",
+    #     "part_a": "4",
+    #     "part_b": "6",
+    #     "start": "j_Н2",
+    #     "mid": "j_Ч2",
+    #     "end": "j_Н4",
+    #     "offset_left": -20,
+    #     "offset_right": -20,
+    # },
+    # # Правый «лестничный» перевод: путь 1 -> путь 2
+    # {
+    #     "type": "Diagonal",
+    #     "name": "Стр_пр_1_2",
+    #     "start": "j_пр_1",
+    #     "end": "j_пр_2",
+    #     "offset_left": 18,
+    #     "offset_right": 18,
+    # },
+    # Пример с явными координатами (если узла ещё нет в positions)
+    # {
+    #     "type": "Diagonal",
+    #     "name": "Стр_тест",
+    #     "start": (520, 200),
+    #     "end": (520, 225),
+    #     "offset_left": 10,
+    #     "offset_right": 10,
+    # },
+]
+
+# Для SplitDiagonal: соответствие частей (как ALB_Turn4-6 в основном проекте)
+split_parts_map = {
+    "Стр_Н2_ветв": {
+        "partA": "6",
+        "partB": "4",
+    },
+}
